@@ -10,6 +10,7 @@
     "type": "project",
     "require": {
         "php": ">=7.3.0",
+        "barryvdh/laravel-ide-helper": "^2.8",
         "encore/laravel-admin": "^1.8",
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
@@ -53,6 +54,12 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
+        ],
+        "ide": [
+            "@php artisan ide-helper:eloquent",
+            "@php artisan ide-helper:generate .ide-helpers/_ide_helper.php",
+            "@php artisan ide-helper:models -p -N -F .ide-helpers/_ide_helper_models.php",
+            "@php artisan ide-helper:meta -F .phpstorm.meta.php/generated-ide-helper.php"
         ]
     },
     "config": {
