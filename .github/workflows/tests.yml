@@ -12,8 +12,8 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.3]
-        laravel: ['5.5']
+        php: [ 7.3 ]
+        laravel: [ '5.5' ]
     name: P${{ matrix.php }} - L${{ matrix.laravel }}
     steps:
       - name: Checkout code
@@ -31,5 +31,10 @@ jobs:
           coverage: none
       - name: Install dependencies
         run: composer install --prefer-dist --no-interaction
+      - name: Prepare database and configuration
+        run: |
+          touch database/database.sqlite
+          cp .env.example .env
+          php artisan migrate
       - name: Execute tests
         run: vendor/bin/phpunit --verbose
