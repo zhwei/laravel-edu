@@ -7,6 +7,12 @@ use App\Student;
 use App\StudentFollow;
 use Illuminate\Http\Request;
 use OpenApi\Annotations\Get;
+use OpenApi\Annotations\Items;
+use OpenApi\Annotations\JsonContent;
+use OpenApi\Annotations\Parameter;
+use OpenApi\Annotations\Property;
+use OpenApi\Annotations\Response;
+use OpenApi\Annotations\Schema;
 
 class TeacherController extends Controller
 {
