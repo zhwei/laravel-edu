@@ -23,6 +23,6 @@ class ErrorMessage extends \RuntimeException implements Responsable
 
     public function toResponse($request)
     {
-        return new JsonResponse(['message' => $this->message]);
+        return new JsonResponse(['message' => $this->message], $this->getCode() ?: 400);
     }
 }
