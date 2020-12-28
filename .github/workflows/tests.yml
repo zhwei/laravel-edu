@@ -37,5 +37,6 @@ jobs:
           cp .env.example .env
           php artisan key:generate
           php artisan migrate
+          php artisan passport:install
       - name: Execute tests
         run: vendor/bin/phpunit --verbose

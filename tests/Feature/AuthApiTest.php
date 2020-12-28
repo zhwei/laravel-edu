@@ -38,7 +38,7 @@ class AuthApiTest extends TestCase
             'email' => $mail,
             'password' => $password,
         ]);
-        // throw $resp->exception;
+        $resp->assertSuccessful();
         self::assertSame(['access_token', 'expires_at'], array_keys($resp->json()));
         self::assertTrue(is_int($resp->json()['expires_at']));
     }
