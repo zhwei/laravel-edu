@@ -5,10 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasApiTokens;
 
     /**
      * 身份字段，boot() 中会根据此字段设定 global scope
@@ -25,6 +27,16 @@ class User extends Authenticatable
                 $builder->where(static::$identityColumn, '>', 0);
             });
         }
+    }
+
+    /**
+     * 检查用户是否当前 model 角色
+     * @param User $user
+     * @return bool
+     */
+    public static function checkIdentity(User $user)
+    {
+        return static::$identityColumn && $user->getAttribute(static::$identityColumn) > 0;
     }
 
     /**
