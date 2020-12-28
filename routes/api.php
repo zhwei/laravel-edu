@@ -39,7 +39,7 @@ Route::middleware('auth:api')->group(function () {
     });
 
     // Role: 教师
-    Route::middleware(UserIdentity::class . ':' . Teacher::class)->group(function () {
+    Route::middleware(UserIdentity::class . ':' . Teacher::class . ',' . SystemAdmin::class)->group(function () {
         // 学校
         Route::post('schools/create', 'Api\SchoolController@create');
         Route::get('schools', 'Api\SchoolController@list');

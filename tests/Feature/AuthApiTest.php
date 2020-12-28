@@ -34,6 +34,11 @@ class AuthApiTest extends TestCase
             'password' => bcrypt($password = 'hello.world'),
         ]);
 
+        // fail
+        $resp = $this->postJson('/auth/login', ['email' => 'hello@world.com', 'password' => '123']);
+        self::assertSame(400, $resp->getStatusCode());
+
+        // success
         $resp = $this->postJson('/auth/login', [
             'email' => $mail,
             'password' => $password,

@@ -13,15 +13,18 @@ class UserIdentity
      *
      * @param \Illuminate\Http\Request $request
      * @param \Closure $next
-     * @param class-string|User $identityModelClassName
+     * @param class-string[]|User[] $identities
      * @return mixed
      *
      * @throws \Illuminate\Auth\AuthenticationException
      */
-    public function handle($request, Closure $next, string $identityModelClassName)
+    public function handle($request, Closure $next, ...$identities)
     {
-        if ($identityModelClassName::checkIdentity($request->user())) {
-            return $next($request);
+        $user = $request->user();
+        foreach ($identities as $identity) {
+            if ($identity::checkIdentity($user)) {
+                return $next($request);
+            }
         }
 
         throw new ErrorMessage('无权操作');

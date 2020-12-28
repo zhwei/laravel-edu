@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class School extends Model
 {
+    protected $casts = [
+        'approve_time' => 'int',
+    ];
+
     public function teachers()
     {
         return $this->belongsToMany(Teacher::class, 'school_teachers', 'school_id', 'teacher_id');

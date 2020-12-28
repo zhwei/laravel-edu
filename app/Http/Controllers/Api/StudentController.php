@@ -29,7 +29,11 @@ class StudentController extends Controller
      *     @Parameter(name="lastId", in="query", @Schema(type="integer", description="翻页 id")),
      *     @Response(response="200", description="老师列表", @JsonContent(type="object", properties={
      *          @Property(property="lastId", type="integer", description="用于控制翻页"),
-     *          @Property(property="items", type="array", description="老师列表", @Items(ref="#/components/schemas/Teacher")),
+     *          @Property(property="items", type="array", description="老师列表", @Items(type="object", properties={
+     *              @Property(property="id", type="integer", description="ID"),
+     *              @Property(property="name", type="string", description="姓名"),
+     *              @Property(property="email", type="string", description="邮箱"),
+     *          })),
      *     })),
      *     @Response(response="401", description="未登录")
      * )
