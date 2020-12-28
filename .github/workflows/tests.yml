@@ -39,4 +39,4 @@ jobs:
           php artisan migrate
           php artisan passport:install
       - name: Execute tests
-        run: vendor/bin/phpunit --verbose
+        run: vendor/bin/phpunit --verbose --coverage-text
