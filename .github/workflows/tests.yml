@@ -44,5 +44,6 @@ jobs:
       - name: Execute Cypress tests
         uses: cypress-io/github-action@v2
         with:
-          start: php artisan serve
-          wait-on: 'http://127.0.0.1:8000'
+          working-directory: front-end
+          start: php ../artisan serve, yarn serve
+          wait-on: 'http://127.0.0.1:8000, http://127.0.0.1:8080'
