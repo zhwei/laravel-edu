@@ -20,7 +20,7 @@ class TeacherController extends Controller
      * @Get(
      *     path="/teachers/students/following",
      *     tags={ "Teachers" },
-     *     operationId="listFollowing",
+     *     operationId="listFollowingStudents",
      *     security={{ "bearerAuth":{} }},
      *     @Parameter(name="lastId", in="query", @Schema(type="integer", description="翻页 id")),
      *     @Response(response="200", description="学生分页结果", @JsonContent(type="object", properties={

@@ -117,7 +117,7 @@ class SchoolController extends Controller
      *     description="创建学生",
      *     path="/schools/students/{schoolId}/create",
      *     tags={ "Schools" },
-     *     operationId="create",
+     *     operationId="createStudent",
      *     security={{ "bearerAuth":{} }},
      *     @Parameter(name="schoolId", in="path", required=true, @Schema(type="integer", description="学校 ID")),
      *     @RequestBody(description="学生信息", required=true, @JsonContent(type="object", properties={
@@ -160,7 +160,7 @@ class SchoolController extends Controller
     /**
      * @Post(
      *     description="邀请老师",
-     *     path="schools/teachers/{schoolId}/invite",
+     *     path="/schools/teachers/{schoolId}/invite",
      *     tags={ "Schools" },
      *     operationId="inviteTeacher",
      *     security={{ "bearerAuth":{} }},
