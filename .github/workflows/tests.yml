@@ -38,5 +38,6 @@ jobs:
           php artisan key:generate
           php artisan migrate
           php artisan passport:install
+          php artisan db:seed
       - name: Execute tests
         run: vendor/bin/phpunit --verbose --coverage-text

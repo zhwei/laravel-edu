@@ -2,7 +2,7 @@
   <el-row type="flex" justify="center" class="login">
     <el-col :xs="24" :sm="18" :md="10" :lg="8" :xl="6">
       <el-card>
-        <h2>Login</h2>
+        <h2>登陆</h2>
         <el-form :model="form" :rules="formRules" ref="form">
           <el-form-item label="邮箱" prop="email">
             <el-input v-model="form.email"></el-input>
