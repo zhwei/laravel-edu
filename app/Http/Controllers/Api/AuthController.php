@@ -10,7 +10,6 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use OpenApi\Annotations\Info;
 use OpenApi\Annotations\JsonContent;
 use OpenApi\Annotations\Post;
 use OpenApi\Annotations\Property;
@@ -83,7 +82,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($request->only(['email', 'password'])) === false) {
-            throw new ErrorMessage(__('auth.login_failed'));
+            throw new ErrorMessage('邮箱或密码错误');
         }
 
         /** @var User $user */

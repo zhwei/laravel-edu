@@ -1,13 +1,13 @@
 <template>
   <el-row type="flex" justify="center" class="login">
-    <el-col :xs="24" :sm="18" :md="8" :lg="6" :xl="6">
+    <el-col :xs="24" :sm="18" :md="10" :lg="8" :xl="6">
       <el-card>
         <h2>Login</h2>
         <el-form :model="form" :rules="formRules" ref="form">
-          <el-form-item label="Email" prop="email">
+          <el-form-item label="邮箱" prop="email">
             <el-input v-model="form.email"></el-input>
           </el-form-item>
-          <el-form-item label="Password" prop="password">
+          <el-form-item label="密码" prop="password">
             <el-input v-model="form.password" type="password"></el-input>
           </el-form-item>
           <el-form-item>
@@ -15,6 +15,8 @@
             <el-button>取消</el-button>
           </el-form-item>
         </el-form>
+
+        <router-link to="/register" class="el-link el-link--primary">注册</router-link>
       </el-card>
 
     </el-col>
@@ -22,7 +24,9 @@
 </template>
 
 <script>
-// import {AuthApi} from "@/api/api.ts";
+import axios from 'axios'
+import rules from './rules'
+import {login} from "@/utils/auth";
 
 export default {
   name: "Login",
@@ -33,13 +37,8 @@ export default {
         password: '',
       },
       formRules: {
-        email: [
-          {required: true, message: '请输入邮箱地址'},
-          {type: 'email', message: '请输入有效邮箱地址'},
-        ],
-        password: [
-          {required: true, message: '请输入密码'},
-        ],
+        email: rules.email,
+        password: rules.password,
       },
     }
   },
@@ -47,13 +46,18 @@ export default {
     onLogin() {
       this.$refs['form'].validate((valid) => {
         if (!valid) {
-          alert('error submit!');
           return false;
         }
 
-        // const api = new AuthApi()
-        // const resp = api.login({email: this.form.email, password: this.form.password})
-        // console.log(resp)
+        axios.post('http://127.0.0.1:8000/auth/login', this.form)
+            .then(resp => {
+              login(resp.data.access_token, resp.data.expires_at)
+              this.$message.success('登陆成功')
+            })
+            .catch(error => {
+              this.$message.error(error.response.data.message)
+            })
+
       });
     },
   }
