@@ -39,5 +39,10 @@ jobs:
           php artisan migrate
           php artisan passport:install
           php artisan db:seed
-      - name: Execute tests
+      - name: Execute PHPUnit tests
         run: vendor/bin/phpunit --verbose --coverage-text
+      - name: Execute Cypress tests
+        uses: cypress-io/github-action@v2
+        with:
+          start: php artisan serve
+          wait-on: 'http://127.0.0.1:8000'
