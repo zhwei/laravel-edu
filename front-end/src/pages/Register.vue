@@ -73,6 +73,7 @@ export default {
         registerApi(this.form)
             .then(resp => {
               login(resp.data)
+              this.$message.success('注册成功')
               this.$router.push('/')
             })
             .catch(error => {
