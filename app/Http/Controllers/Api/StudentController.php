@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Api\Components\ErrorMessage;
 use App\Http\Controllers\Controller;
+use App\School;
+use App\SchoolTeacher;
 use App\StudentFollow;
 use App\Teacher;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,6 +23,84 @@ use OpenApi\Annotations\Schema;
 class StudentController extends Controller
 {
     /**
+     * 获取当前登陆学生的学校信息
+     *
+     * @Get(
+     *     description="当前登陆学生的学校信息",
+     *     path="/students/school-info",
+     *     tags={ "Students" },
+     *     operationId="getSchoolInfo",
+     *     security={{ "bearerAuth":{} }},
+     *     @Response(response="200", description="老师列表", @JsonContent(type="object", properties={
+     *          @Property(property="id", type="integer", description="学校 id"),
+     *          @Property(property="name", type="string", description="学校名称"),
+     *     })),
+     *     @Response(response="401", description="未登录")
+     * )
+     */
+    public function schoolInfo(Request $request)
+    {
+        $school = School::find($request->user()->student_school_id);
+        throw_unless($school, new ErrorMessage('学校信息查询失败'));
+
+        return [
+            'id' => $school->id,
+            'name' => $school->name,
+        ];
+    }
+
+    /**
+     * @Get(
+     *     description="获取当前登陆学生关注的老师列表",
+     *     path="/students/following",
+     *     tags={ "Students" },
+     *     operationId="getSchoolTeachers",
+     *     security={{ "bearerAuth":{} }},
+     *     @Parameter(name="lastId", in="query", @Schema(type="integer", description="翻页 id")),
+     *     @Response(response="200", description="老师列表", @JsonContent(type="object", properties={
+     *          @Property(property="lastId", type="integer", description="用于控制翻页"),
+     *          @Property(property="items", type="array", description="老师列表", @Items(type="object", properties={
+     *              @Property(property="id", type="integer", description="ID"),
+     *              @Property(property="name", type="string", description="姓名"),
+     *              @Property(property="following", type="boolean", description="是否正在关注中"),
+     *          })),
+     *     })),
+     *     @Response(response="401", description="未登录")
+     * )
+     */
+    public function schoolTeachers(Request $request)
+    {
+        $student = $request->user();
+        $schoolId = $student->student_school_id;
+        throw_unless($schoolId, new ErrorMessage('查询学校信息失败'));
+
+        $teacherIds = SchoolTeacher::whereSchoolId($schoolId)->pluck('teacher_id')->all();
+        if (!$teacherIds) {
+            return ['lastId' => 0, 'items' => []];
+        }
+        $lastId = (int)$request->query('lastId');
+        $teachers = Teacher::whereIn('id', $teacherIds)
+            ->when($lastId, function (Builder $query) use ($lastId) {
+                $query->where('id', '>', $lastId);
+            })
+            ->get(['id', 'name']);
+        $following = StudentFollow::whereStudentId($student->id)->pluck('teacher_id')->all();
+
+        return [
+            'lastId' => $teachers->last()->id ?? 0,
+            'items' => $teachers
+                ->map(function (Teacher $teacher) use ($following) {
+                    return [
+                        'id' => $teacher->id,
+                        'name' => $teacher->name,
+                        'following' => in_array($teacher->id, $following),
+                    ];
+                })
+                ->all(),
+        ];
+    }
+
+    /**
      * @Get(
      *     description="获取当前登陆学生关注的老师列表",
      *     path="/students/following",
@@ -32,7 +113,7 @@ class StudentController extends Controller
      *          @Property(property="items", type="array", description="老师列表", @Items(type="object", properties={
      *              @Property(property="id", type="integer", description="ID"),
      *              @Property(property="name", type="string", description="姓名"),
-     *              @Property(property="email", type="string", description="邮箱"),
+     *              @Property(property="following", type="boolean", description="是否正在关注中"),
      *          })),
      *     })),
      *     @Response(response="401", description="未登录")
@@ -53,11 +134,16 @@ class StudentController extends Controller
         $teachers = Teacher::query()
             ->findMany($teacherIds, ['id', 'name', 'email', 'created_at'])
             ->keyBy('id');
+        $following = StudentFollow::whereStudentId($user->id)->pluck('teacher_id')->all();
 
         // 按关注顺序返回老师列表
         $result = ['lastId' => $teacherIds->last()->id ?? 0, 'items' => []];
         foreach ($teacherIds as $teacherId) {
-            $result['items'][] = $teachers[$teacherId];
+            $result['items'][] = [
+                'id' => $teachers[$teacherId]->id,
+                'name' => $teachers[$teacherId]->name,
+                'following' => in_array($teachers[$teacherId]->id, $following),
+            ];
         }
         return $result;
     }

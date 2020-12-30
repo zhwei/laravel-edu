@@ -25,6 +25,10 @@ use OpenApi\Annotations\Schema;
 
 class SchoolController extends Controller
 {
+    public function info()
+    {
+    }
+
     /**
      * @Post(
      *     description="申请创建学校（老师）",

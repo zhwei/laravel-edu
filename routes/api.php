@@ -36,6 +36,8 @@ Route::middleware('auth:api')->group(function () {
         Route::get('students/following', 'Api\StudentController@listFollowing');
         Route::post('students/follow/{teacherId}', 'Api\StudentController@follow');
         Route::delete('students/unfollow/{teacherId}', 'Api\StudentController@unfollow');
+        Route::get('students/school-info', 'Api\StudentController@schoolInfo');
+        Route::get('students/school-teachers', 'Api\StudentController@schoolTeachers');
     });
 
     // Role: 教师
