@@ -9,7 +9,7 @@ describe('登陆测试', () => {
         cy.url().should('contain', '/#/login')
 
         // 点击注册跳转到注册页面
-        cy.get('a').contains('注册').click()
+        cy.get('button').contains('注册新用户').click()
         cy.url().should('contain', '/#/register')
     })
 
