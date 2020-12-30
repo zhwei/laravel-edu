@@ -1,56 +1,37 @@
 <template>
   <el-row>
-    <el-col :xs="6" :sm="8" :md="8" :lg="4" :xl="4">
-<!--      <p>{{ user.name }}</p>-->
-<!--      <a @click="logout">退出登陆</a>-->
-
+    <el-col :xs="6" :sm="8" :md="6" :lg="4" :xl="4">
       <el-menu
-          default-active="2"
+          :router="true"
           class="el-menu-vertical-demo">
-        <el-submenu index="0">
+        <el-submenu index="username">
           <template slot="title">
             <span><strong>{{ user.name }}</strong></span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="0-1" @click="onLogout">退出登陆</el-menu-item>
+            <el-menu-item>{{ user.role.toUpperCase() }}</el-menu-item>
+            <el-menu-item @click="onLogout">退出登陆</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <el-menu-item index="2">
-        </el-menu-item>
-        <el-submenu index="1">
+        <el-menu-item index="deliver"></el-menu-item>
+
+        <el-menu-item-group
+            v-for="menu in menus"
+            :key="menu.name"
+            :index="menu.name">
           <template slot="title">
-            <i class="el-icon-user-solid"></i>
-            <span>学生</span>
+            <i :class="menu.icon"></i> {{ menu.name }}
           </template>
-          <el-menu-item-group>
-            <template slot="title">分组一</template>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="分组2">
-            <el-menu-item index="1-3">选项3</el-menu-item>
-          </el-menu-item-group>
-          <el-submenu index="1-4">
-            <template slot="title">选项4</template>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
-          </el-submenu>
-        </el-submenu>
-        <el-menu-item index="2">
-          <i class="el-icon-s-custom"></i>
-          <span slot="title">老师</span>
-        </el-menu-item>
-        <el-menu-item index="3">
-          <i class="el-icon-school"></i>
-          <span slot="title">学校管理员</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-cpu"></i>
-          <span slot="title">系统管理员</span>
-        </el-menu-item>
+          <el-menu-item v-for="child in menu.children"
+                        :index="child.path"
+                        :key="menu.name + '-' + child.name">
+            {{ child.name }}
+          </el-menu-item>
+        </el-menu-item-group>
       </el-menu>
     </el-col>
 
-    <el-col :span="16">
+    <el-col :xs="18" :sm="16" :md="18" :lg="20" :xl="20">
       <el-breadcrumb separator="/" class="breadcrumb">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item v-if="title">{{ title }}</el-breadcrumb-item>
@@ -68,6 +49,7 @@
 
 <script>
 import {getUserInfo, logout} from "@/utils/auth";
+import {ALL_MENUS} from "@/menu";
 
 export default {
   name: "Panel",
@@ -75,10 +57,17 @@ export default {
   data() {
     return {
       user: {},
+      menus: [],
     }
   },
   created() {
     this.user = getUserInfo()
+
+    for (const menu of ALL_MENUS) {
+      if (menu.roles.includes(this.user.role)) {
+        this.menus.push(menu)
+      }
+    }
   },
   methods: {
     onLogout() {

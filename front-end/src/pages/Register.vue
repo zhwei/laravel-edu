@@ -18,11 +18,9 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit">注册</el-button>
-            <el-button>取消</el-button>
+            <el-button @click="$router.push('/login')">已有用户登陆</el-button>
           </el-form-item>
         </el-form>
-
-        <router-link to="/login" class="el-link el-link--primary">登陆</router-link>
       </el-card>
 
     </el-col>
@@ -30,10 +28,10 @@
 </template>
 
 <script>
-import axios from 'axios'
 import _ from 'lodash'
-import rules from './rules'
 import {login} from "@/utils/auth";
+import {registerApi} from "@/api/auth";
+import rules from "@/utils/rules";
 
 export default {
   name: "Register",
@@ -66,16 +64,13 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log('here 1')
-
       this.$refs['form'].validate((valid) => {
         if (!valid) {
           alert('error')
           return false;
         }
 
-        console.log('here')
-        axios.post('http://127.0.0.1:8000/auth/register', this.form)
+        registerApi(this.form)
             .then(resp => {
               login(resp.data)
               this.$router.push('/')

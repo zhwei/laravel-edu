@@ -2,22 +2,29 @@
 
 
 use App\Student;
+use App\User;
 
 class UserSeeder extends \Illuminate\Database\Seeder
 {
     public function run()
     {
-        $mail = 'tom.student@jerry.com';
-        if (Student::whereEmail($mail)->first()) {
-            echo "tom.student exists\n";
-            return;
+        $roles = [
+            'student',
+            'teacher',
+            'system_admin',
+        ];
+        foreach ($roles as $role) {
+            $mail = "tom.{$role}@jerry.com";
+            if (User::whereEmail($mail)->first()) {
+                echo "tom.{$role} exists\n";
+                continue;
+            }
+            User::forceCreate([
+                'name' => 'Tom ' . ucfirst($role),
+                'email' => $mail,
+                'password' => bcrypt('secret'),
+                "is_{$role}" => time(),
+            ]);
         }
-
-        Student::forceCreate([
-            'name' => 'Tom',
-            'email' => $mail,
-            'password' => bcrypt('secret'),
-            'is_student' => time(),
-        ]);
     }
 }

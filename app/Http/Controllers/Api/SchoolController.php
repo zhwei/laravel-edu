@@ -49,6 +49,12 @@ class SchoolController extends Controller
         $school->name = $request->json('name');
         $school->creator_id = $request->user()->id;
         $school->save();
+
+        SchoolTeacher::forceCreate([
+            'teacher_id' => $request->user()->id,
+            'school_id' => $school->id,
+            'is_manager' => time(),
+        ]);
     }
 
     /**
@@ -68,6 +74,7 @@ class SchoolController extends Controller
      *              @Property(property="name", type="string", description="学校名称"),
      *              @Property(property="approve_at", type="string", description="学校通过审批的时间"),
      *              @Property(property="created_at", type="string", description="申请时间"),
+     *              @Property(property="students_count", type="integer", description="学生数目"),
      *          })),
      *     }))
      * )
@@ -77,7 +84,7 @@ class SchoolController extends Controller
         $lastId = (int)$request->query('lastId');
         $isSystemAdmin = SystemAdmin::checkIdentity($request->user());
 
-        $query = School::query();
+        $query = School::withCount('students');
 
         if ($isSystemAdmin) {
             $lastId > 0 && $query->where('id', '>', $lastId); // 系统管理员时，只添加翻页条件
@@ -105,6 +112,7 @@ class SchoolController extends Controller
                         'name' => $school->name,
                         'approve_at' => $school->approve_time ? date('Y-m-d H:i:s', $school->approve_time) : '',
                         'created_at' => $school->created_at->toDateTimeString(),
+                        'students_count' => $school->students_count,
                     ];
                 },
                 $schools->all(),

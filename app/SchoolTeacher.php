@@ -11,6 +11,7 @@ class SchoolTeacher extends Model
     protected $fillable = [
         'school_id',
         'teacher_id',
+        'is_manager',
     ];
 
     public static function isSchoolManager(int $schoolId, int $teacherId)

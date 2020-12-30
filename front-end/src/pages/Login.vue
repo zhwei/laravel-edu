@@ -12,11 +12,9 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onLogin">登陆</el-button>
-            <el-button>取消</el-button>
+            <el-button @click="$router.push('/register')">注册新用户</el-button>
           </el-form-item>
         </el-form>
-
-        <router-link to="/register" class="el-link el-link--primary">注册</router-link>
       </el-card>
 
     </el-col>
@@ -24,9 +22,9 @@
 </template>
 
 <script>
-import axios from 'axios'
-import rules from './rules'
-import {login} from "@/utils/auth";
+import rules from "@/utils/rules";
+import {login} from "@/utils/auth"
+import {loginApi} from "@/api/auth";
 
 export default {
   name: "Login",
@@ -49,7 +47,7 @@ export default {
           return false;
         }
 
-        axios.post('http://127.0.0.1:8000/auth/login', this.form)
+        loginApi(this.form)
             .then(resp => {
               login(resp.data)
               this.$message.success('登陆成功')
