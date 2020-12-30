@@ -33,6 +33,7 @@
 import axios from 'axios'
 import _ from 'lodash'
 import rules from './rules'
+import {login} from "@/utils/auth";
 
 export default {
   name: "Register",
@@ -54,7 +55,7 @@ export default {
       },
       formRules: {
         email: rules.email,
-        name: {type: 'string', required: true},
+        name: rules.name,
         password: rules.password,
         password_confirmation: [
           ...rules.password,
@@ -76,9 +77,8 @@ export default {
         console.log('here')
         axios.post('http://127.0.0.1:8000/auth/register', this.form)
             .then(resp => {
-              console.log(resp)
-              this.$message.success('注册成功')
-              this.$router.push('/login')
+              login(resp.data)
+              this.$router.push('/')
             })
             .catch(error => {
               if (!_.isEmpty(error.response.data.errors)) {

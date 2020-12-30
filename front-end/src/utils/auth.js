@@ -1,11 +1,27 @@
-export function login(access_token, expires_at) {
-    localStorage.setItem('access_token', access_token)
-    localStorage.setItem('access_token_expires_at', expires_at)
+export function login(userInfo) {
+    localStorage.setItem('access_token', userInfo.access_token)
+    localStorage.setItem('access_token_expires_at', userInfo.expires_at)
+    localStorage.setItem('name', userInfo.name)
+    localStorage.setItem('role', userInfo.role)
 }
 
 export function logout() {
     localStorage.removeItem('access_token')
     localStorage.removeItem('access_token_expires_at')
+}
+
+export function getUserInfo() {
+    const access_token = getAccessToken()
+    if (!access_token) {
+        return null
+    }
+
+    return {
+        name: localStorage.getItem('name'),
+        role: localStorage.getItem('role'),
+        access_token,
+        expires_at: localStorage.getItem('access_token_expires_at'),
+    }
 }
 
 export function getAccessToken() {

@@ -1,4 +1,7 @@
 describe('登陆测试', () => {
+    beforeEach(() => {
+        cy.clearLocalStorage()
+    })
 
     it('未登录访问首页时，自动跳转到登陆页面', () => {
         cy.visit('/')
@@ -30,5 +33,6 @@ describe('登陆测试', () => {
             expect(localStorage.getItem('access_token')).to.be.not.null
             expect(localStorage.getItem('access_token_expires_at')).to.be.not.null
         })
+        cy.url().should('eq', Cypress.config().baseUrl + '/#/')
     })
 })

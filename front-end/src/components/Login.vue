@@ -51,8 +51,9 @@ export default {
 
         axios.post('http://127.0.0.1:8000/auth/login', this.form)
             .then(resp => {
-              login(resp.data.access_token, resp.data.expires_at)
+              login(resp.data)
               this.$message.success('登陆成功')
+              this.$router.push('/')
             })
             .catch(error => {
               this.$message.error(error.response.data.message)

@@ -23,13 +23,16 @@ class AuthApiTest extends TestCase
             'password' => 'hello.world',
             'password_confirmation' => 'hello.world',
         ]);
-        self::assertSame('', $resp->json());
+        self::assertSame(['access_token', 'expires_at', 'name', 'role'], array_keys($resp->json()));
         self::assertNotNull(Teacher::whereEmail($mail)->first());
+        self::assertSame('Tom', $resp->json()['name']);
+        self::assertSame('teacher', $resp->json()['role']);
     }
 
     public function testLogin()
     {
         factory(Teacher::class)->create([
+            'name' => 'hello world',
             'email' => $mail = app(Generator::class)->email,
             'password' => bcrypt($password = 'hello.world'),
         ]);
@@ -44,7 +47,8 @@ class AuthApiTest extends TestCase
             'password' => $password,
         ]);
         $resp->assertSuccessful();
-        self::assertSame(['access_token', 'expires_at'], array_keys($resp->json()));
+        self::assertSame(['access_token', 'expires_at', 'name', 'role'], array_keys($resp->json()));
         self::assertTrue(is_int($resp->json()['expires_at']));
+        self::assertSame('hello world', $resp->json()['name']);
     }
 }
