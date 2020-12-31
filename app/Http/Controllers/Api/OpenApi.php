@@ -14,7 +14,7 @@ use OpenApi\Annotations\Tag;
  * @Info(title="Laravel Edu API", version="1.0")
  *
  * @Server(description="开发环境", url="http://127.0.0.1:8000")
- * @Server(description="生产环境", url="http://laravel-edu.zhw.in")
+ * @Server(description="生产环境", url="https://laravel-edu.herokuapp.com/")
  *
  * @Tag(name="Auth", description="授权接口")
  * @Tag(name="Students", description="学生接口")
