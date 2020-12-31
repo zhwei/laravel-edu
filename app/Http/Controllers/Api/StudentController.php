@@ -51,8 +51,8 @@ class StudentController extends Controller
 
     /**
      * @Get(
-     *     description="获取当前登陆学生关注的老师列表",
-     *     path="/students/following",
+     *     description="获取当前登陆学生学校的老师列表",
+     *     path="/students/teaching",
      *     tags={ "Students" },
      *     operationId="getSchoolTeachers",
      *     security={{ "bearerAuth":{} }},
