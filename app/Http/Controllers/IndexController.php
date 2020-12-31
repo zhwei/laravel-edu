@@ -8,7 +8,7 @@ class IndexController
 {
     public function index()
     {
-        return redirect('/');
+        return redirect('/dashboard/index.html');
     }
 
     public function api()
