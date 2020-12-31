@@ -46,4 +46,4 @@ jobs:
         with:
           working-directory: front-end
           start: php ../artisan serve, yarn serve
-          wait-on: 'http://127.0.0.1:8000, http://127.0.0.1:8080'
+          wait-on: 'http://127.0.0.1:8000/api, http://127.0.0.1:8080'
