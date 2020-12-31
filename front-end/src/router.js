@@ -7,10 +7,11 @@ import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import SchoolList from "@/pages/SchoolList";
 import SchoolCreation from "@/pages/SchoolCreation";
-import StudentList from "@/pages/StudentList";
 import StudentInfo from "@/pages/StudentInfo";
 import StudentTeachers from "@/pages/StudentTeachers";
 import StudentFollowing from "@/pages/StudentFollowing";
+import TeacherFollowing from "@/pages/TeacherFollowing";
+import TeacherTeaching from "@/pages/TeacherTeaching";
 
 
 const requireAuth = function (to, from, next) {
@@ -26,11 +27,10 @@ export default new VueRouter({
         {path: '/login', component: Login},
         {path: '/register', component: Register},
 
-        {path: '/', component: Index, beforeEnter: requireAuth},
-
         {path: '/schools/list', component: SchoolList, beforeEnter: requireAuth},
         {path: '/schools/create', component: SchoolCreation, beforeEnter: requireAuth},
-        {path: '/teachers/students/:type', component: StudentList, beforeEnter: requireAuth, props: true},
+        {path: '/teachers/teaching', component: TeacherTeaching, beforeEnter: requireAuth, props: true},
+        {path: '/teachers/following', component: TeacherFollowing, beforeEnter: requireAuth, props: true},
         {path: '/students/info', component: StudentInfo, beforeEnter: requireAuth},
         {path: '/students/teaching', component: StudentTeachers, beforeEnter: requireAuth},
         {path: '/students/following', component: StudentFollowing, beforeEnter: requireAuth},

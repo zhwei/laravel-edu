@@ -33,11 +33,15 @@ export default {
         teaching: listTeachingApi,
         following: listFollowingApi,
       }[this.$props.api]
-      console.log(this.$props.api)
       method(this.paginator.lastId)
           .then(resp => this.paginator = resp.data)
           .catch(error => this.$message.error(error.response.data.message))
     },
+  },
+  watch: {
+    api: function () {
+      this.refreshList()
+    }
   },
 }
 </script>

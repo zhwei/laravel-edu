@@ -17,8 +17,8 @@ export const ALL_MENUS = [
         children: [
             {name: '申请新学校', path: '/schools/create'},
             {name: '学校列表', path: '/schools/list'},
-            {name: '学生列表', path: '/teachers/students/teaching'},
-            {name: '关注我的', path: '/teachers/students/following'},
+            {name: '我的学生', path: '/teachers/teaching'},
+            {name: '关注我的', path: '/teachers/following'},
         ],
     },
 

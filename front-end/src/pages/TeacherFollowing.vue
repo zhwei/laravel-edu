@@ -1,6 +1,6 @@
 <template>
-  <panel title="学生列表">
-    <student-list-table :api="type"></student-list-table>
+  <panel title="关注我的">
+    <student-list-table api="following"></student-list-table>
   </panel>
 </template>
 
@@ -9,15 +9,8 @@ import Panel from "@/components/Panel";
 import StudentListTable from "@/components/StudentListTable";
 
 export default {
-  name: "StudentList",
+  name: "TeacherFollowing",
   components: {StudentListTable, Panel},
-  props: ['type'],
-  data() {
-    return {}
-  },
-  created() {
-  },
-  methods: {},
 }
 </script>
 
