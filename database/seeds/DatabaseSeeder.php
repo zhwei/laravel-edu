@@ -5,12 +5,6 @@ use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
-    private $seeders = [
-
-        UserSeeder::class,
-
-    ];
-
     /**
      * Run the database seeds.
      *
@@ -26,7 +20,7 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        foreach ($this->seeders as $seeder) {
+        foreach (array_keys(require __DIR__ . '/config.php') as $seeder) {
             $this->call($seeder);
         }
     }

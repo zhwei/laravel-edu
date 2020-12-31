@@ -109,7 +109,7 @@ class TeacherController extends Controller
             'id' => $student->id,
             'name' => $student->name,
             'school_id' => $student->student_school_id,
-            'school_name' => $student->school->name,
+            'school_name' => $student->school->name ?? '',
         ];
     }
 
