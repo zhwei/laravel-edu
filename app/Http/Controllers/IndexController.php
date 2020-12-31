@@ -8,6 +8,11 @@ class IndexController
 {
     public function index()
     {
+        return redirect('/');
+    }
+
+    public function api()
+    {
         return response(
             scan(app_path())->toJson(),
             200,

@@ -1,10 +1,31 @@
-FROM php:7.3-cli-alpine
+# 前端构建
+FROM node:latest as build-frontend
+WORKDIR /app
+COPY front-end /app
+RUN yarn install && yarn build
 
 
+# 后端构建
+FROM php:7.3-cli-alpine as build-backend
+WORKDIR /app
 # 安装 composer
 ENV COMPOSER_ALLOW_SUPERUSER=true
 COPY --from=composer /usr/bin/composer /usr/bin/composer
+# 初始化项目和数据库
+COPY . /app
+RUN composer install; \
+    rm -rf database/database.sqlite; \
+    touch database/database.sqlite; \
+    cp .env.example .env; \
+    php artisan key:generate; \
+    php artisan migrate; \
+    php artisan passport:install; \
+    php artisan db:seed; \
+    php artisan db:seed --class="\\Encore\\Admin\\Auth\\Database\\AdminTablesSeeder"
 
+
+
+FROM php:7.3-cli-alpine
 # 基础配置: 配置时区
 RUN set -eux; \
     apk add --no-cache --virtual .tz-deps tzdata; \
@@ -12,18 +33,7 @@ RUN set -eux; \
     echo "Asia/Shanghai" >  /etc/timezone; \
     date; \
     apk del .tz-deps
-
-
-WORKDIR /var/www/laravel-edu
-COPY . /var/www/laravel-edu
-
-# 初始化项目和数据库
-RUN composer install; \
-	rm -rf database/database.sqlite; \
-	touch database/database.sqlite; \
-	cp .env.example .env; \
-	php artisan key:generate; \
-	php artisan migrate; \
-	php artisan passport:install; \
-	php artisan db:seed; \
-	php artisan db:seed --class="\\Encore\\Admin\\Auth\\Database\\AdminTablesSeeder"; \
+WORKDIR /app
+COPY --from=build-backend /app /app
+COPY --from=build-frontend /app/dist /app/public/dashboard
+CMD ["/usr/local/bin/php", "artisan", "serve", "--host=0.0.0.0"]
