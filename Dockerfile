@@ -13,15 +13,10 @@ ENV COMPOSER_ALLOW_SUPERUSER=true
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 # 初始化项目和数据库
 COPY . /app
-RUN composer install; \
-    rm -rf database/database.sqlite; \
-    touch database/database.sqlite; \
-    cp .env.example .env; \
-    php artisan key:generate; \
-    php artisan migrate; \
-    php artisan passport:install; \
-    php artisan db:seed; \
-    php artisan db:seed --class="\\Encore\\Admin\\Auth\\Database\\AdminTablesSeeder"
+RUN set -eux; \
+    ln -sf .env.example .env; \
+    composer install; \
+    composer reset-database
 
 
 
@@ -33,6 +28,7 @@ RUN set -eux; \
     echo "Asia/Shanghai" >  /etc/timezone; \
     date; \
     apk del .tz-deps
+# 复制代码，启动开发 server
 WORKDIR /app
 COPY --from=build-backend /app /app
 COPY --from=build-frontend /app/dist /app/public/dashboard

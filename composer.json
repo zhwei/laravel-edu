@@ -17,7 +17,8 @@
         "laravel/framework": "5.5.*",
         "laravel/passport": "~4.0",
         "laravel/tinker": "~1.0",
-        "lcobucci/jwt": "3.3.3"
+        "lcobucci/jwt": "3.3.3",
+        "pusher/pusher-php-server": "^4.1"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -63,6 +64,24 @@
             "@php artisan ide-helper:generate .ide-helpers/_ide_helper.php",
             "@php artisan ide-helper:models -p -N -F .ide-helpers/_ide_helper_models.php",
             "@php artisan ide-helper:meta -F .phpstorm.meta.php/generated-ide-helper.php"
+        ],
+        "build": [
+            "php artisan route:cache",
+            "php artisan config:cache",
+            "php artisan view:clear"
+        ],
+        "clean": [
+            "php artisan route:clear",
+            "php artisan config:clear",
+            "php artisan view:clear"
+        ],
+        "reset-database": [
+            "rm -rf database/database.sqlite",
+            "touch database/database.sqlite",
+            "php artisan migrate",
+            "php artisan passport:install",
+            "php artisan db:seed",
+            "php artisan db:seed --class=\"\\Encore\\Admin\\Auth\\Database\\AdminTablesSeeder\""
         ]
     },
     "config": {

@@ -4,9 +4,10 @@ export const ALL_MENUS = [
         roles: ['student', 'system_admin'],
         icon: 'el-icon-user-solid',
         children: [
-            {name: '我的信息', path: '/students/info'},
+            {name: '我', path: '/students/info'},
             {name: '老师们', path: '/students/teaching'},
             {name: '我关注的', path: '/students/following'},
+            {name: '消息', path: '/messages'},
         ],
     },
 
