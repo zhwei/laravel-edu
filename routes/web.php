@@ -13,3 +13,7 @@
 
 Route::get('/', 'IndexController@index');
 Route::get('/api', 'IndexController@api');
+
+
+Route::get('line', 'LineController@redirect');
+Route::get('callback/line', 'LineController@callback');

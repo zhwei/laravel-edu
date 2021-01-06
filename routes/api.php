@@ -27,9 +27,12 @@ Route::patterns([
 // Auth
 Route::post('auth/login', 'Api\AuthController@login');
 Route::post('auth/register', 'Api\AuthController@register');
+Route::post('auth/line/login', 'Api\LineController@login');
 
 
 Route::middleware('auth:api')->group(function () {
+    Route::post('line/bind', 'Api\LineController@bind');
+    Route::put('line/unbind', 'Api\LineController@unbind');
 
     // Role: 学生
     Route::middleware(UserIdentity::class . ':' . Student::class)->group(function () {
@@ -38,7 +41,6 @@ Route::middleware('auth:api')->group(function () {
         Route::delete('students/unfollow/{teacherId}', 'Api\StudentController@unfollow');
         Route::get('students/school-info', 'Api\StudentController@schoolInfo');
         Route::get('students/school-teachers', 'Api\StudentController@schoolTeachers');
-
         Route::post('messages/student-talk/{teacherId}', 'Api\MessageController@studentTalk');
     });
 
