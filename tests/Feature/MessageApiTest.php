@@ -12,7 +12,7 @@ class MessageApiTest extends TestCase
     {
         Passport::actingAs(User::find(1));
 
-        $resp = $this->postJson('/messages/student-talk/2', ['message' => 'hello world 11']);
+        $resp = $this->postJson('/messages/student-talk/2', ['content' => 'hello world 11']);
         throw_if($resp->exception, $resp->exception);
         $resp->assertSuccessful();
     }
