@@ -6,6 +6,15 @@
     <el-table-column prop="school_name" label="学校"></el-table-column>
     <el-table-column prop="name" label="姓名"></el-table-column>
     <el-table-column fixed="right" label="操作">
+      <template slot-scope="scope">
+        <el-button v-if="onChat"
+                   type="info"
+                   :round="true"
+                   :plain="true"
+                   @click="onChat(scope.row)"
+                   size="small">发消息
+        </el-button>
+      </template>
     </el-table-column>
   </el-table>
 </template>
@@ -15,7 +24,7 @@ import {listFollowingApi, listTeachingApi} from "@/api/teacher";
 
 export default {
   name: "StudentListTable",
-  props: ['api'],
+  props: ['api', 'onChat'],
   data() {
     return {
       paginator: {

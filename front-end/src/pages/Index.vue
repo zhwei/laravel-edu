@@ -14,6 +14,9 @@ export default {
   components: {
     Panel,
   },
+  data() {
+    return {}
+  },
   methods: {},
 }
 </script>

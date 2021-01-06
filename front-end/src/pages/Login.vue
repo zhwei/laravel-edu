@@ -56,7 +56,7 @@ export default {
             .then(resp => {
               login(resp.data)
               this.$message.success('登陆成功')
-              this.$router.push('/')
+              location.href = '?'
             })
             .catch(error => {
               this.$message.error(error.response.data.message)

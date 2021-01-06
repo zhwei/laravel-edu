@@ -3,6 +3,7 @@
 namespace App\Events;
 
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
@@ -46,6 +47,7 @@ class ChatEvent implements ShouldBroadcast
             'id' => $this->sender->id,
             'name' => $this->sender->name,
             'content' => $this->content,
+            'time' => Carbon::now()->toDateTimeString(),
         ];
     }
 }
