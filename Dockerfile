@@ -7,13 +7,13 @@ RUN yarn install && yarn build
 
 # 后端构建
 FROM php:7.3-cli-alpine as build-backend
-WORKDIR /app
-# 安装 composer
 ENV COMPOSER_ALLOW_SUPERUSER=true
-COPY --from=composer /usr/bin/composer /usr/bin/composer
-# 初始化项目和数据库
-COPY . /app
 ENV APP_ENV=production
+# 准备代码和 composer
+WORKDIR /app
+COPY . /app
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+# 安装依赖、初始化数据库、构建缓存
 RUN set -eux; \
     composer install; \
     composer reset-database; \
@@ -34,5 +34,4 @@ WORKDIR /app
 COPY --from=build-backend /app /app
 COPY --from=build-frontend /app/dist /app/public/dashboard
 # 启动开发 server
-ENV APP_ENV=production
 CMD ["/usr/local/bin/php", "artisan", "serve", "--host=0.0.0.0"]
