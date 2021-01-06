@@ -30,6 +30,12 @@ class UserInfo implements \JsonSerializable
     public $expires_at;
 
     /**
+     * @Property(description="ID")
+     * @var integer
+     */
+    public $id;
+
+    /**
      * @Property(description="姓名")
      * @var string
      */
@@ -43,6 +49,7 @@ class UserInfo implements \JsonSerializable
 
     public function __construct(User $user, string $access_token, int $expires_at)
     {
+        $this->id = $user->id;
         $this->name = $user->name;
         $this->access_token = $access_token;
         $this->expires_at = $expires_at;

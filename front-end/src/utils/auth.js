@@ -3,6 +3,7 @@ export function login(userInfo) {
     localStorage.setItem('access_token_expires_at', userInfo.expires_at)
     localStorage.setItem('name', userInfo.name)
     localStorage.setItem('role', userInfo.role)
+    localStorage.setItem('id', userInfo.id)
 }
 
 export function logout() {
@@ -10,6 +11,7 @@ export function logout() {
     localStorage.removeItem('access_token_expires_at')
     localStorage.removeItem('name')
     localStorage.removeItem('role')
+    localStorage.removeItem('id')
 }
 
 export function getUserInfo() {
@@ -19,6 +21,7 @@ export function getUserInfo() {
     }
 
     return {
+        id: localStorage.getItem('id'),
         name: localStorage.getItem('name'),
         role: localStorage.getItem('role'),
         access_token,

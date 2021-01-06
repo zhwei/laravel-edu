@@ -19,6 +19,13 @@
                    :plain="true"
                    size="small">关注
         </el-button>
+        <el-button v-if="onChat"
+                   type="info"
+                   :round="true"
+                   :plain="true"
+                   @click="onChat(scope.row)"
+                   size="small">发消息
+        </el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -29,10 +36,14 @@ import {followApi, getFollowingTeachers, getSchoolTeachers, unfollowApi} from "@
 
 export default {
   name: "StudentTeachersTable",
-  props: ['type'],
+  components: {},
+  props: [
+      'type',
+      'onChat'
+  ],
   data() {
     return {
-      paginator: {lastId: 0, items: []}
+      paginator: {lastId: 0, items: []},
     }
   },
   created() {

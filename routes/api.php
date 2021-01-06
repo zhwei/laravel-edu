@@ -38,6 +38,8 @@ Route::middleware('auth:api')->group(function () {
         Route::delete('students/unfollow/{teacherId}', 'Api\StudentController@unfollow');
         Route::get('students/school-info', 'Api\StudentController@schoolInfo');
         Route::get('students/school-teachers', 'Api\StudentController@schoolTeachers');
+
+        Route::post('messages/student-talk/{teacherId}', 'Api\MessageController@studentTalk');
     });
 
     // Role: 教师
@@ -52,6 +54,8 @@ Route::middleware('auth:api')->group(function () {
         // 学生
         Route::get('teachers/students/teaching', 'Api\TeacherController@listFollowing');
         Route::get('teachers/students/following', 'Api\TeacherController@listFollowing');
+
+        Route::post('messages/teacher-talk/{studentId}', 'Api\MessageController@teacherTalk');
     });
 
     // Role: 系统管理员

@@ -24,3 +24,10 @@ Broadcast::channel('student.{id}', function (User $user, $id) {
 Broadcast::channel('teacher.{id}', function (User $user, $id) {
     return (int)$user->id === (int)$id;
 });
+
+
+Broadcast::channel('room.{teacherId}.{studentId}', function (User $user, $teacherId, $studentId) {
+    logger(__FILE__, func_get_args());
+    return true;
+});
+
