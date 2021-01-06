@@ -78,10 +78,10 @@
         "reset-database": [
             "rm -rf database/database.sqlite",
             "touch database/database.sqlite",
-            "php artisan migrate",
+            "php artisan migrate --force",
             "php artisan passport:install --force",
-            "php artisan db:seed",
-            "php artisan db:seed --class='\\Encore\\Admin\\Auth\\Database\\AdminTablesSeeder'"
+            "php artisan db:seed --force",
+            "php artisan db:seed --class='\\Encore\\Admin\\Auth\\Database\\AdminTablesSeeder' --force"
         ]
     },
     "config": {
