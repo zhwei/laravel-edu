@@ -37,7 +37,7 @@ export const ALL_MENUS = [
         roles: ['system_admin'],
         icon: 'el-icon-cpu',
         children: [
-            {name: '审批学校申请', path: '/'}
+            {name: '审批学校申请', path: '/schools/list'}
         ],
     },
 ]

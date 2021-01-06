@@ -12,10 +12,6 @@
               <el-menu-item @click="onLogout">退出登陆</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-menu-item index="chat">
-            <i class="el-icon-chat-dot-square"></i>
-            <span slot="title">消息</span>
-          </el-menu-item>
 
           <el-menu-item-group
               v-for="menu in menus"

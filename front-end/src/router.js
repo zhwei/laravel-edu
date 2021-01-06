@@ -13,6 +13,7 @@ import StudentFollowing from "@/pages/StudentFollowing";
 import TeacherFollowing from "@/pages/TeacherFollowing";
 import TeacherTeaching from "@/pages/TeacherTeaching";
 import Messages from "@/pages/Messages";
+import LineLogin from "@/pages/LineLogin";
 
 
 const requireAuth = function (to, from, next) {
@@ -27,6 +28,7 @@ export default new VueRouter({
     routes: [
         {path: '/login', component: Login},
         {path: '/register', component: Register},
+        {path: '/line', component: LineLogin},
 
         {path: '/schools/list', component: SchoolList, beforeEnter: requireAuth},
         {path: '/schools/create', component: SchoolCreation, beforeEnter: requireAuth},

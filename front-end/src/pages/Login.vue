@@ -13,6 +13,7 @@
           <el-form-item>
             <el-button type="primary" @click="onLogin">登陆</el-button>
             <el-button @click="$router.push('/register')">注册新用户</el-button>
+            <el-button @click="onLineLogin">Line 登陆</el-button>
           </el-form-item>
         </el-form>
       </el-card>
@@ -24,12 +25,13 @@
 <script>
 import rules from "@/utils/rules";
 import {login} from "@/utils/auth"
-import {loginApi} from "@/api/auth";
+import {lineLoginUrl, loginApi} from "@/api/auth";
 
 export default {
   name: "Login",
   data: () => {
     return {
+      lineUrl: lineLoginUrl(),
       form: {
         email: '',
         password: '',
@@ -41,6 +43,9 @@ export default {
     }
   },
   methods: {
+    onLineLogin() {
+      location.href = lineLoginUrl()
+    },
     onLogin() {
       this.$refs['form'].validate((valid) => {
         if (!valid) {

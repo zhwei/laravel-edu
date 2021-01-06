@@ -28,6 +28,7 @@ Route::patterns([
 Route::post('auth/login', 'Api\AuthController@login');
 Route::post('auth/register', 'Api\AuthController@register');
 Route::post('auth/line/login', 'Api\LineController@login');
+Route::post('auth/line/users', 'Api\LineController@users');
 
 
 Route::middleware('auth:api')->group(function () {

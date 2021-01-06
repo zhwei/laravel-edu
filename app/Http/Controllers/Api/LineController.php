@@ -57,7 +57,7 @@ class LineController extends Controller
     {
         $this->validate($request, [
             'token' => 'required|string',
-            'userId' => 'required|number',
+            'userId' => 'required|integer',
         ]);
 
         $jwt = $request->json('token');

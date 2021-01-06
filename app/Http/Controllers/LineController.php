@@ -42,6 +42,6 @@ class LineController extends Controller
         ]);
         $data = json_decode($response->getBody()->getContents(), true);
 
-        return redirect(config('app.frontend_url') . "?token={$data['id_token']}#/auth/line");
+        return redirect(config('app.frontend_url') . "?token={$data['id_token']}#/line");
     }
 }

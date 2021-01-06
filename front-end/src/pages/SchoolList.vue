@@ -10,12 +10,13 @@
       <el-table-column prop="created_at" label="创建时间"></el-table-column>
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
-          <el-button v-if="!scope.row.approve_at"
+          <el-button v-if="canApproveSchool && !scope.row.approve_at"
                      @click="onApprove(scope.row.id)"
                      type="text"
                      size="small">通过
           </el-button>
-          <el-button @click="onShowStudentForm(scope.row)"
+          <el-button v-if="scope.row.is_manager"
+                     @click="onShowStudentForm(scope.row)"
                      type="text"
                      size="small"> 新增学生
           </el-button>
@@ -58,16 +59,20 @@ import Panel from "@/components/Panel";
 import {approveApi, listApi} from "@/api/school";
 import rules from "@/utils/rules";
 import {createStudentApi} from "@/api/student";
+import {getUserInfo} from "@/utils/auth";
 
 export default {
   name: "SchoolList",
   components: {Panel},
   data() {
     return {
+      // 学校分页
       paginator: {
         lastId: 0,
         items: []
       },
+      // 学校操作权限
+      canApproveSchool: getUserInfo().role === 'system_admin',
       // 新增学生
       showAddStudentForm: false,
       schoolAddStudent: null,

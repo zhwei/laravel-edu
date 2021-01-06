@@ -79,6 +79,7 @@ class SchoolController extends Controller
      *              @Property(property="approve_at", type="string", description="学校通过审批的时间"),
      *              @Property(property="created_at", type="string", description="申请时间"),
      *              @Property(property="students_count", type="integer", description="学生数目"),
+     *              @Property(property="is_manager", type="boolean", description="是否拥有管理权限"),
      *          })),
      *     }))
      * )
@@ -93,10 +94,12 @@ class SchoolController extends Controller
         if ($isSystemAdmin) {
             $lastId > 0 && $query->where('id', '>', $lastId); // 系统管理员时，只添加翻页条件
             $query->limit(OpenApi::PAGE_LIMIT);
+            $managedSchoolIds = [];
         } else {
+            $teacherId = $request->user()->id;
             // 非系统管理员，根据关联表查询所有学校 id
             // 使用关联表的 id 作为翻页凭据
-            $schoolIds = SchoolTeacher::whereTeacherId($request->user()->id)
+            $schoolIds = SchoolTeacher::whereTeacherId($teacherId)
                 ->when($lastId, function (Builder $query) use ($lastId) {
                     $query->where('id', '>', $lastId);
                 })
@@ -104,19 +107,24 @@ class SchoolController extends Controller
                 ->pluck('school_id', 'id');
             $currentLastId = $schoolIds->keys()->last();
             $query->whereIn('id', $schoolIds->values());
+            $managedSchoolIds = SchoolTeacher::whereTeacherId($teacherId)
+                ->where('is_manager', '>', 0)
+                ->pluck('school_id')
+                ->all();
         }
 
         $schools = $query->get(['id', 'name', 'approve_time', 'created_at']);
         return [
             'lastId' => $currentLastId ?? $schools->last()->id ?? 0,
             'items' => array_map(
-                function (School $school) {
+                function (School $school) use ($isSystemAdmin, $managedSchoolIds) {
                     return [
                         'id' => $school->id,
                         'name' => $school->name,
                         'approve_at' => $school->approve_time ? date('Y-m-d H:i:s', $school->approve_time) : '',
                         'created_at' => $school->created_at->toDateTimeString(),
                         'students_count' => $school->students_count,
+                        'is_manager' => $isSystemAdmin || in_array($school->id, $managedSchoolIds),
                     ];
                 },
                 $schools->all(),
