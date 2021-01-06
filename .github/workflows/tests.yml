@@ -33,12 +33,8 @@ jobs:
         run: composer install --prefer-dist --no-interaction
       - name: Prepare database and configuration
         run: |
-          touch database/database.sqlite
-          cp .env.example .env
-          php artisan key:generate
-          php artisan migrate
-          php artisan passport:install
-          php artisan db:seed
+          ln -s .env.local .env
+          composer reset-database
       - name: Execute PHPUnit tests
         run: vendor/bin/phpunit --verbose --coverage-text
       - name: Execute Cypress tests
