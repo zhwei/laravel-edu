@@ -1,10 +1,9 @@
-import axios from "axios";
-import {BASE_PATH} from "@/api/api";
+import {unAuthedApi} from "@/api/api";
 
 export function loginApi(data) {
-    return axios.post(BASE_PATH + '/auth/login', data)
+    return unAuthedApi().post('/auth/login', data)
 }
 
 export function registerApi(data) {
-    return axios.post(BASE_PATH + '/auth/register', data)
+    return unAuthedApi().post('/auth/register', data)
 }

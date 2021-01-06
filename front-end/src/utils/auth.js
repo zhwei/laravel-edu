@@ -8,6 +8,8 @@ export function login(userInfo) {
 export function logout() {
     localStorage.removeItem('access_token')
     localStorage.removeItem('access_token_expires_at')
+    localStorage.removeItem('name')
+    localStorage.removeItem('role')
 }
 
 export function getUserInfo() {

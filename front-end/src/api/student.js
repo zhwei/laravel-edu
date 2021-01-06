@@ -1,51 +1,25 @@
-import axios from "axios";
-import {BASE_PATH, getAuthedHeaders} from "@/api/api";
+import {authedApi} from "@/api/api";
 
 export function createStudentApi(schoolId, data) {
-    return axios({
-        method: 'post',
-        url: BASE_PATH + `/schools/students/${schoolId}/create`,
-        headers: getAuthedHeaders(),
-        data,
-    })
+    return authedApi().post(`/schools/students/${schoolId}/create`, data)
 }
 
 export function getSchoolInfo() {
-    return axios({
-        method: 'get',
-        url: BASE_PATH + `/students/school-info`,
-        headers: getAuthedHeaders(),
-    })
+    return authedApi().get('/students/school-info')
 }
 
 export function getSchoolTeachers() {
-    return axios({
-        method: 'get',
-        url: BASE_PATH + `/students/school-teachers`,
-        headers: getAuthedHeaders(),
-    })
+    return authedApi().get(`/students/school-teachers`)
 }
 
 export function getFollowingTeachers() {
-    return axios({
-        method: 'get',
-        url: BASE_PATH + `/students/following`,
-        headers: getAuthedHeaders(),
-    })
+    return authedApi().get(`/students/following`)
 }
 
 export function followApi(teacherId) {
-    return axios({
-        method: 'post',
-        url: BASE_PATH + `/students/follow/${teacherId}`,
-        headers: getAuthedHeaders(),
-    })
+    return authedApi().post(`/students/follow/${teacherId}`)
 }
 
 export function unfollowApi(teacherId) {
-    return axios({
-        method: 'delete',
-        url: BASE_PATH + `/students/unfollow/${teacherId}`,
-        headers: getAuthedHeaders(),
-    })
+    return authedApi().delete(`/students/unfollow/${teacherId}`)
 }
