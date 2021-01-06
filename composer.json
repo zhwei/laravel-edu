@@ -79,9 +79,9 @@
             "rm -rf database/database.sqlite",
             "touch database/database.sqlite",
             "php artisan migrate",
-            "php artisan passport:install",
+            "php artisan passport:install --force",
             "php artisan db:seed",
-            "php artisan db:seed --class=\"\\Encore\\Admin\\Auth\\Database\\AdminTablesSeeder\""
+            "php artisan db:seed --class='\\Encore\\Admin\\Auth\\Database\\AdminTablesSeeder'"
         ]
     },
     "config": {

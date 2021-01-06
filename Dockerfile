@@ -13,10 +13,11 @@ ENV COMPOSER_ALLOW_SUPERUSER=true
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 # 初始化项目和数据库
 COPY . /app
+ENV APP_ENV=production
 RUN set -eux; \
-    ln -sf .env.example .env; \
     composer install; \
-    composer reset-database
+    composer reset-database; \
+    composer build
 
 
 
@@ -28,8 +29,10 @@ RUN set -eux; \
     echo "Asia/Shanghai" >  /etc/timezone; \
     date; \
     apk del .tz-deps
-# 复制代码，启动开发 server
+# 复制代码
 WORKDIR /app
 COPY --from=build-backend /app /app
 COPY --from=build-frontend /app/dist /app/public/dashboard
+# 启动开发 server
+ENV APP_ENV=production
 CMD ["/usr/local/bin/php", "artisan", "serve", "--host=0.0.0.0"]
