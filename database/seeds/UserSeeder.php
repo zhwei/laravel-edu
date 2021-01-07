@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
                 'email' => $item['email'],
                 'password' => bcrypt('secret'),
                 "is_{$item['@role']}" => time(),
+                'line_id' => $item['line_id'] ?? '',
             ]);
         }
 

@@ -6,6 +6,7 @@ return [
     UserSeeder::class => [
         [
             'email' => 'tom.student@jerry.com',
+            'line_id' => 'U88785bc472841e0c0624640995f92aff',
             '@role' => 'student',
             '@following' => ['tom.teacher@jerry.com', 'tom.teacher.2@jerry.com'],
             '@school' => '清华大学',
@@ -28,5 +29,10 @@ return [
         ],
     ],
 
-
+    AdminMenuSeeder::class => [
+        ['parent_id' => 0, 'order' => 100, 'icon' => 'fa-user', 'uri' => 'edu/students', 'title' => 'Edu Students'],
+        ['parent_id' => 0, 'order' => 101, 'icon' => 'fa-user', 'uri' => 'edu/teachers', 'title' => 'Edu Teachers'],
+        ['parent_id' => 0, 'order' => 102, 'icon' => 'fa-user', 'uri' => 'edu/users', 'title' => 'Edu Users'],
+        ['parent_id' => 0, 'order' => 103, 'icon' => 'fa-list', 'uri' => 'edu/schools', 'title' => 'Edu Schools'],
+    ],
 ];

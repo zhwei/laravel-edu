@@ -26,6 +26,10 @@ class User extends Authenticatable
             static::addGlobalScope('student', function (Builder $builder) {
                 $builder->where(static::$identityColumn, '>', 0);
             });
+
+            static::creating(function (User $user) {
+                $user->setAttribute(static::$identityColumn, time());
+            });
         }
     }
 

@@ -19,6 +19,7 @@
         "laravel/passport": "~4.0",
         "laravel/tinker": "~1.0",
         "lcobucci/jwt": "3.3.3",
+        "linecorp/line-bot-sdk": "^6.1",
         "pusher/pusher-php-server": "^4.1"
     },
     "require-dev": {
@@ -81,8 +82,8 @@
             "touch database/database.sqlite",
             "php artisan migrate --force",
             "php artisan passport:install --force",
-            "php artisan db:seed --force",
-            "php artisan db:seed --class='\\Encore\\Admin\\Auth\\Database\\AdminTablesSeeder' --force"
+            "php artisan db:seed --class='\\Encore\\Admin\\Auth\\Database\\AdminTablesSeeder' --force",
+            "php artisan db:seed --force"
         ]
     },
     "config": {

@@ -2,21 +2,21 @@
 
 namespace App\Admin\Controllers;
 
-use App\User;
+use App\Admin\Actions\LineMulticastTextMessage;
+use App\Student;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
-use Encore\Admin\Grid\Filter;
 use Encore\Admin\Show;
 
-class UserController extends AdminController
+class StudentController extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = 'User';
+    protected $title = 'Student';
 
     /**
      * Make a grid builder.
@@ -25,12 +25,10 @@ class UserController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new User());
+        $grid = new Grid(new Student());
 
-        $grid->filter(function (Filter $filter) {
-            $filter->scope('only-student', 'Only Student')->where('is_student', '>', 0);
-            $filter->scope('only-teacher', 'Only Teacher')->where('is_teacher', '>', 0);
-            $filter->scope('only-system_admin', 'Only System Admin')->where('is_system_admin', '>', 0);
+        $grid->batchActions(function ($batch) {
+            $batch->add(new LineMulticastTextMessage());
         });
 
         $grid->column('id', __('Id'));
@@ -40,10 +38,7 @@ class UserController extends AdminController
         $grid->column('remember_token', __('Remember token'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
-        $grid->column('is_student', __('Is student'))->filter();
         $grid->column('student_school_id', __('Student school id'));
-        $grid->column('is_teacher', __('Is teacher'));
-        $grid->column('is_system_admin', __('Is system admin'));
         $grid->column('line_id', __('Line id'));
 
         return $grid;
@@ -57,7 +52,7 @@ class UserController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(User::findOrFail($id));
+        $show = new Show(Student::findOrFail($id));
 
         $show->field('id', __('Id'));
         $show->field('name', __('Name'));
@@ -66,10 +61,7 @@ class UserController extends AdminController
         $show->field('remember_token', __('Remember token'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
-        $show->field('is_student', __('Is student'));
         $show->field('student_school_id', __('Student school id'));
-        $show->field('is_teacher', __('Is teacher'));
-        $show->field('is_system_admin', __('Is system admin'));
         $show->field('line_id', __('Line id'));
 
         return $show;
@@ -82,16 +74,13 @@ class UserController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new User());
+        $form = new Form(new Student());
 
         $form->text('name', __('Name'));
         $form->email('email', __('Email'));
         $form->password('password', __('Password'));
         $form->text('remember_token', __('Remember token'));
-        $form->datetime('is_student', __('Is student'))->default(date('Y-m-d H:i:s'));
         $form->number('student_school_id', __('Student school id'));
-        $form->datetime('is_teacher', __('Is teacher'))->default(date('Y-m-d H:i:s'));
-        $form->datetime('is_system_admin', __('Is system admin'))->default(date('Y-m-d H:i:s'));
         $form->text('line_id', __('Line id'));
 
         return $form;

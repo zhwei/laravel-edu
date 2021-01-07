@@ -33,6 +33,6 @@ describe('登陆测试', () => {
             expect(localStorage.getItem('access_token')).to.be.not.null
             expect(localStorage.getItem('access_token_expires_at')).to.be.not.null
         })
-        cy.url().should('eq', Cypress.config().baseUrl + '/#/')
+        cy.url().should('eq', Cypress.config().baseUrl + '/?#/')
     })
 })
