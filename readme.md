@@ -2,6 +2,10 @@
 
 **使用文档见 [docs/readme.md](./docs/readme.md)**
 
+生产环境地址：
+- 项目地址：<https://laravel-edu.herokuapp.com/>
+- API doc：<https://laravel-edu-api-doc.herokuapp.com/>
+
 ## Requirements
 
 - PHP 7.3
@@ -19,7 +23,6 @@
 ## 开发环境部署
 
 ```bash
-
 # 1、fork + clone 仓库
 git clone git@github.com:zhwei/laravel-edu.git
 cd laravel-edu
@@ -28,9 +31,11 @@ cd laravel-edu
 # 后端环境（默认监听 8000 端口，如果修改端口需要同步修改前端 .env 配置文件）
 composer init-development
 composer serve
+# 访问 http://127.0.0.1:8000/api  查看 api spec
 
-# 前端
+# 前端（默认监听 8080 端口，如果修改端口需要同步修改后端 .env 配置文件）
 cd front-end
+yarn install
 yarn serve
 ```
 
