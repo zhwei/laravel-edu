@@ -13,7 +13,7 @@
 
 use App\User;
 
-Broadcast::channel('student.{id}', function (User $user, $id) {
+Broadcast::channel('students.{id}', function (User $user, $id) {
 
     $user->student_school_id;
 

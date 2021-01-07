@@ -2,8 +2,12 @@
 
 namespace App;
 
+use Illuminate\Notifications\Notifiable;
+
 class Student extends User
 {
+    use Notifiable;
+
     protected static $identityColumn = 'is_student';
 
     public function followed_teachers()
@@ -14,5 +18,10 @@ class Student extends User
     public function school()
     {
         return $this->belongsTo(School::class, 'student_school_id');
+    }
+
+    public function receivesBroadcastNotificationsOn()
+    {
+        return 'students.' . $this->id;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Actions\LineMulticastTextMessage;
+use App\Admin\Actions\MulticastTextMessage;
 use App\Student;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -28,7 +28,7 @@ class StudentController extends AdminController
         $grid = new Grid(new Student());
 
         $grid->batchActions(function ($batch) {
-            $batch->add(new LineMulticastTextMessage());
+            $batch->add(new MulticastTextMessage());
         });
 
         $grid->column('id', __('Id'));
