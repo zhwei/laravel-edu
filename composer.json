@@ -63,7 +63,7 @@
         ],
         "init-development": [
             "ln -sf .env.local .env",
-            "@install",
+            "composer install",
             "@reset-database",
             "@ide"
         ],
