@@ -55,7 +55,7 @@ Route::middleware('auth:api')->group(function () {
         Route::post('schools/teachers/{schoolId}/invite', 'Api\SchoolController@inviteTeacher');
         Route::post('schools/messages/{schoolId}/send/{studentId}', 'Api\SchoolController@sendMessage');
         // 学生
-        Route::get('teachers/students/teaching', 'Api\TeacherController@listFollowing');
+        Route::get('teachers/students/teaching', 'Api\TeacherController@listTeaching');
         Route::get('teachers/students/following', 'Api\TeacherController@listFollowing');
 
         Route::post('messages/teacher-talk/{studentId}', 'Api\MessageController@teacherTalk');

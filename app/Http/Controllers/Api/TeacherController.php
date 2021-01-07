@@ -58,7 +58,7 @@ class TeacherController extends Controller
 
         return self::paginator(
             $students->last()->id ?? 0,
-            array_map([$this, 'buildStudent'], $students)
+            array_map([$this, 'buildStudent'], $students->all())
         );
     }
 
