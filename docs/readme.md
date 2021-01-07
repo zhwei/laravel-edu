@@ -3,7 +3,7 @@
 
 Admin 功能
 
-- [Line 批量通知学生](./admin-line-multicast.md)
+- [推送通知](./admin-multicast.md)
 
 
 
