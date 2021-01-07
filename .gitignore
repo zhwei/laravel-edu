@@ -7,7 +7,6 @@
 /.idea
 /.vscode
 /.vagrant
-/.ide-helpers
 /.phpstorm.meta.php
 Homestead.json
 Homestead.yaml
