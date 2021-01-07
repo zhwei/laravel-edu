@@ -7,7 +7,6 @@ export const ALL_MENUS = [
             {name: '我', path: '/students/info'},
             {name: '老师们', path: '/students/teaching'},
             {name: '我关注的', path: '/students/following'},
-            {name: '消息', path: '/messages'},
         ],
     },
 

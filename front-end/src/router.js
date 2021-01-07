@@ -12,7 +12,6 @@ import StudentTeachers from "@/pages/StudentTeachers";
 import StudentFollowing from "@/pages/StudentFollowing";
 import TeacherFollowing from "@/pages/TeacherFollowing";
 import TeacherTeaching from "@/pages/TeacherTeaching";
-import Messages from "@/pages/Messages";
 import LineLogin from "@/pages/LineLogin";
 
 
@@ -37,8 +36,6 @@ export default new VueRouter({
         {path: '/students/info', component: StudentInfo, beforeEnter: requireAuth},
         {path: '/students/teaching', component: StudentTeachers, beforeEnter: requireAuth},
         {path: '/students/following', component: StudentFollowing, beforeEnter: requireAuth},
-
-        {path: '/messages', component: Messages, beforeEnter: requireAuth},
 
         {path: '*', component: Index, beforeEnter: requireAuth},
     ],
