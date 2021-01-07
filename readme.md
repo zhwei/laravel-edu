@@ -2,7 +2,7 @@
 
 **部分使用文档见 [docs/readme.md](./docs/readme.md)（完善中）**
 
-生产环境地址：
+生产环境地址（注意：每次部署会丢弃所有新增数据和登陆状态）：
 - 项目地址：<https://laravel-edu.herokuapp.com/>
   - 测试账号，密码均为 `secret`
     - tom.student@jerry.com 
@@ -43,6 +43,7 @@ cd laravel-edu
 composer init-development
 composer serve
 # 访问 http://127.0.0.1:8000/api  查看 api spec
+
 
 # 前端（默认监听 8080 端口，如果修改端口需要同步修改后端 .env.local 配置文件）
 cd front-end
