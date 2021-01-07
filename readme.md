@@ -34,7 +34,7 @@
 ## 开发环境部署
 
 ```bash
-# 1、fork + clone 仓库
+# clone 仓库
 git clone git@github.com:zhwei/laravel-edu.git
 cd laravel-edu
 
