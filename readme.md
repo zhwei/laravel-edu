@@ -30,3 +30,4 @@
 ## todo
 
 - admin 中的 relation 编辑
+- pusher 权限判定

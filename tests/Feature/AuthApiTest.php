@@ -23,7 +23,7 @@ class AuthApiTest extends TestCase
             'password' => 'hello.world',
             'password_confirmation' => 'hello.world',
         ]);
-        self::assertSame(['access_token', 'expires_at', 'id', 'name', 'role'], array_keys($resp->json()));
+        self::assertSame(['access_token', 'expires_at', 'id', 'name', 'role', 'lineBinded'], array_keys($resp->json()));
         self::assertNotNull(Teacher::whereEmail($mail)->first());
         self::assertSame('Tom', $resp->json()['name']);
         self::assertSame('teacher', $resp->json()['role']);
@@ -47,7 +47,7 @@ class AuthApiTest extends TestCase
             'password' => $password,
         ]);
         $resp->assertSuccessful();
-        self::assertSame(['access_token', 'expires_at', 'id', 'name', 'role'], array_keys($resp->json()));
+        self::assertSame(['access_token', 'expires_at', 'id', 'name', 'role', 'lineBinded'], array_keys($resp->json()));
         self::assertTrue(is_int($resp->json()['expires_at']));
         self::assertSame('hello world', $resp->json()['name']);
     }

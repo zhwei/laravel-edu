@@ -47,12 +47,19 @@ class UserInfo implements \JsonSerializable
      */
     public $role;
 
+    /**
+     * @Property(description="是否绑定了 line 账号")
+     * @var bool
+     */
+    public $lineBinded = false;
+
     public function __construct(User $user, string $access_token, int $expires_at)
     {
         $this->id = $user->id;
         $this->name = $user->name;
         $this->access_token = $access_token;
         $this->expires_at = $expires_at;
+        $this->lineBinded = $user->line_id !== '';
 
         SystemAdmin::checkIdentity($user) && $this->role = 'system_admin';
         Teacher::checkIdentity($user) && $this->role = 'teacher';

@@ -13,6 +13,10 @@
             </el-menu-item-group>
           </el-submenu>
 
+          <el-menu-item v-if="user.lineBinded === false">
+            <span slot="title" @click="onBindLine">绑定 Line</span>
+          </el-menu-item>
+
           <el-menu-item-group
               v-for="menu in menus"
               :key="menu.name"
@@ -84,7 +88,10 @@ export default {
     onLogout() {
       logout()
       this.$router.push('/login')
-    }
+    },
+    onBindLine() {
+      location.href = process.env.VUE_APP_API_URL + '/line'
+    },
   }
 }
 </script>

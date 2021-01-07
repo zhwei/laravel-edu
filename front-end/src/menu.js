@@ -1,7 +1,7 @@
 export const ALL_MENUS = [
     {
         name: '学生',
-        roles: ['student', 'system_admin'],
+        roles: ['student'],
         icon: 'el-icon-user-solid',
         children: [
             {name: '我', path: '/students/info'},
