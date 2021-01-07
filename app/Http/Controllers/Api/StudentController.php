@@ -26,7 +26,7 @@ class StudentController extends Controller
      * 获取当前登陆学生的学校信息
      *
      * @Get(
-     *     description="当前登陆学生的学校信息",
+     *     summary="当前登陆学生的学校信息",
      *     path="/students/school-info",
      *     tags={ "Students" },
      *     operationId="getSchoolInfo",
@@ -51,7 +51,7 @@ class StudentController extends Controller
 
     /**
      * @Get(
-     *     description="获取当前登陆学生学校的老师列表",
+     *     summary="获取当前登陆学生学校的老师列表",
      *     path="/students/teaching",
      *     tags={ "Students" },
      *     operationId="getSchoolTeachers",
@@ -102,7 +102,7 @@ class StudentController extends Controller
 
     /**
      * @Get(
-     *     description="获取当前登陆学生关注的老师列表",
+     *     summary="获取当前登陆学生关注的老师列表",
      *     path="/students/following",
      *     tags={ "Students" },
      *     operationId="listFollowing",
@@ -150,7 +150,7 @@ class StudentController extends Controller
 
     /**
      * @Post(
-     *     description="当前登陆学生关注指定老师",
+     *     summary="当前登陆学生关注指定老师",
      *     path="/students/follow/{teacherId}",
      *     tags={ "Students" },
      *     operationId="follow",
@@ -170,7 +170,7 @@ class StudentController extends Controller
 
     /**
      * @Delete(
-     *     description="当前登陆学生取消关注指定老师",
+     *     summary="当前登陆学生取消关注指定老师",
      *     path="/students/unfollow/{teacherId}",
      *     tags={ "Students" },
      *     operationId="unfollow",

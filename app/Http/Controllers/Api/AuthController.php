@@ -24,6 +24,7 @@ class AuthController extends Controller
 {
     /**
      * @Post(
+     *     summary="注册为老师",
      *     path="/auth/register",
      *     tags={ "Auth" },
      *     operationId="register",
@@ -60,6 +61,7 @@ class AuthController extends Controller
      * @param Request $request
      *
      * @Post(
+     *     summary="用户登陆",
      *     path="/auth/login",
      *     tags={ "Auth" },
      *     operationId="login",

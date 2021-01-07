@@ -4,6 +4,14 @@
 
 生产环境地址：
 - 项目地址：<https://laravel-edu.herokuapp.com/>
+  - 测试账号，密码均为 `secret`
+    - tom.student@jerry.com 
+    - tom.teacher@jerry.com 
+    - tom.system_admin@jerry.com
+    - 更多详见 database/seeds/config.php UserSeeder 部分
+- Admin：<https://laravel-edu.herokuapp.com/admin>
+  - 测试账号 admin:admin
+- API Spec：<https://laravel-edu.herokuapp.com/api>
 - API doc：<https://laravel-edu-api-doc.herokuapp.com/>
 
 ## Requirements
@@ -16,7 +24,7 @@
     - OpenAPI
     - PHPUnit 单元测试/集成测试
 
-- 前端
+- 前端 (front-end 子目录)
     - Element UI + Vue.js
     - Cypress 集成测试
 
@@ -28,15 +36,22 @@ git clone git@github.com:zhwei/laravel-edu.git
 cd laravel-edu
 
 
-# 后端环境（默认监听 8000 端口，如果修改端口需要同步修改前端 .env 配置文件）
+# 后端环境（默认监听 8000 端口，如果修改端口需要同步修改前端 front-end/.env.development 配置文件）
 composer init-development
 composer serve
 # 访问 http://127.0.0.1:8000/api  查看 api spec
 
-# 前端（默认监听 8080 端口，如果修改端口需要同步修改后端 .env 配置文件）
+# 前端（默认监听 8080 端口，如果修改端口需要同步修改后端 .env.local 配置文件）
 cd front-end
 yarn install
 yarn serve
+```
+
+## 生产环境 (docker)
+
+```bash
+docker build . -t laravel-edu
+docker --rm -it -p 8000:8000 run laravel-edu
 ```
 
 ## Heroku 部署备忘
@@ -54,3 +69,4 @@ yarn serve
 
 - admin 中的 relation 编辑
 - pusher 权限判定
+- 前端调用接口时缺少 loading 提示

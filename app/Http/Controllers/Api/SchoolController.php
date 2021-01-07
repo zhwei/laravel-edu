@@ -25,13 +25,9 @@ use OpenApi\Annotations\Schema;
 
 class SchoolController extends Controller
 {
-    public function info()
-    {
-    }
-
     /**
      * @Post(
-     *     description="申请创建学校（老师）",
+     *     summary="申请创建学校（老师）",
      *     path="/schools/create",
      *     tags={ "Schools" },
      *     operationId="create",
@@ -66,7 +62,7 @@ class SchoolController extends Controller
      *
      * @Get(
      *     path="/schoolds",
-     *     description="学校列表",
+     *     summary="学校列表",
      *     tags={ "Schools" },
      *     operationId="list",
      *     security={{ "bearerAuth":{} }},
@@ -134,7 +130,7 @@ class SchoolController extends Controller
 
     /**
      * @Post(
-     *     description="创建学生",
+     *     summary="创建学生",
      *     path="/schools/students/{schoolId}/create",
      *     tags={ "Schools" },
      *     operationId="createStudent",
@@ -179,7 +175,7 @@ class SchoolController extends Controller
 
     /**
      * @Post(
-     *     description="邀请老师",
+     *     summary="邀请老师",
      *     path="/schools/teachers/{schoolId}/invite",
      *     tags={ "Schools" },
      *     operationId="inviteTeacher",
@@ -226,7 +222,7 @@ class SchoolController extends Controller
      *
      * @Put(
      *     path="/schools/approve/{schoolId}/{action}",
-     *     description="系统管理员审批学校申请",
+     *     summary="系统管理员审批学校申请",
      *     tags={ "Schools" },
      *     operationId="approve",
      *     security={{ "bearerAuth":{} }},
@@ -249,9 +245,5 @@ class SchoolController extends Controller
             $school->approve_time = time();
             $school->save();
         }
-    }
-
-    public function sendMessage(int $schoolId, int $studentId)
-    {
     }
 }
