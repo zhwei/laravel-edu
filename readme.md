@@ -23,6 +23,9 @@
 - 后端
     - OpenAPI
     - PHPUnit 单元测试/集成测试
+      - migrations
+      - seeders
+      - factories
 
 - 前端 (front-end 子目录)
     - Element UI + Vue.js
@@ -70,3 +73,5 @@ docker --rm -it -p 8000:8000 run laravel-edu
 - admin 中的 relation 编辑
 - pusher 权限判定
 - 前端调用接口时缺少 loading 提示
+- 提升前端继承测试覆盖度
+- 后端 line 接口缺少 mock 测试

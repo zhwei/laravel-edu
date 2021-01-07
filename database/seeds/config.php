@@ -30,6 +30,7 @@ return [
     ],
 
     AdminMenuSeeder::class => [
+        ['parent_id' => 0, 'order' => 20, 'icon' => 'fa-file', 'uri' => 'logs', 'title' => 'Log Viewer'],
         ['parent_id' => 0, 'order' => 100, 'icon' => 'fa-user', 'uri' => 'edu/students', 'title' => 'Edu Students'],
         ['parent_id' => 0, 'order' => 101, 'icon' => 'fa-user', 'uri' => 'edu/teachers', 'title' => 'Edu Teachers'],
         ['parent_id' => 0, 'order' => 102, 'icon' => 'fa-user', 'uri' => 'edu/users', 'title' => 'Edu Users'],
