@@ -1,6 +1,6 @@
 # Laravel Educational Management
 
-**使用文档见 [docs/readme.md](./docs/readme.md)**
+**部分使用文档见 [docs/readme.md](./docs/readme.md)（完善中）**
 
 生产环境地址：
 - 项目地址：<https://laravel-edu.herokuapp.com/>
