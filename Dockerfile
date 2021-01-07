@@ -15,7 +15,7 @@ COPY . /app
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 # 安装依赖、初始化数据库、构建缓存等
 RUN set -eux; \
-    composer install; \
+    composer install --ignore-platform-reqs; \
     composer reset-database; \
     composer build; \
     php artisan storage:link
@@ -30,6 +30,7 @@ RUN set -eux; \
     echo "Asia/Shanghai" >  /etc/timezone; \
     date; \
     apk del .tz-deps
+RUN docker-php-ext-install sockets
 # 复制代码
 WORKDIR /app
 COPY --from=build-backend /app /app

@@ -61,6 +61,15 @@
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
         ],
+        "init-development": [
+            "ln -sf .env.local .env",
+            "@install",
+            "@reset-database",
+            "@ide"
+        ],
+        "serve": [
+            "php artisan serve --port=8000"
+        ],
         "ide": [
             "@php artisan ide-helper:eloquent",
             "@php artisan ide-helper:generate .ide-helpers/_ide_helper.php",

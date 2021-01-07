@@ -16,6 +16,24 @@
     - Element UI + Vue.js
     - Cypress 集成测试
 
+## 开发环境部署
+
+```bash
+
+# 1、fork + clone 仓库
+git clone git@github.com:zhwei/laravel-edu.git
+cd laravel-edu
+
+
+# 后端环境（默认监听 8000 端口，如果修改端口需要同步修改前端 .env 配置文件）
+composer init-development
+composer serve
+
+# 前端
+cd front-end
+yarn serve
+```
+
 ## Heroku 部署备忘
 
 - [Building Docker Images with heroku.yml](https://devcenter.heroku.com/articles/build-docker-images-heroku-yml)
